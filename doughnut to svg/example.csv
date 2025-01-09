@@ -1,0 +1,4 @@
+type, name, value, sub-label
+outer, climate change, 76,
+inner, food, 20, imports
+inner, food, 56, exports
