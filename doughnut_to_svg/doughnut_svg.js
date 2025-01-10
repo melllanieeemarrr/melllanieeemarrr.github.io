@@ -169,16 +169,17 @@ class Doughnut_SVG {
         this._middleX = this._donutSize / 2;
         this._middleY = this._donutSize / 2;
         this._donutLineSize = Math.round(16 * fudge);  // For the outer/inner safe zone lines
-        this._donutMargin = Math.round(100 * fudge);   // The space around the whole doughnut diagram
+        this._donutMargin = Math.round(150 * fudge);   // The space around the whole doughnut diagram TRY INCREASE to 150
         this._section = (this._donutSize - this._donutMargin) / 8;
 
+        //changed to get rid of inner circle
         this._inInner = 0;
 
         this._donutRingSize = this._section * this._donutScale;
         let overlapDonut = (this._donutRingSize - this._section) / 2;
         //this._debug("section: " + this._section + " / donutRingSize: " + this._donutRingSize + " / overlap: " + overlapDonut);
 
-        //this._outInner = this._inInner + this._section - overlapDonut;
+        //this._outInner = this._inInner + this._section - overlapDonut; <- original code - i changed to keep spcae in inner circle
         this._outInner = this._section + this._section - overlapDonut;
 
         this._inDonut = this._outInner;
@@ -186,9 +187,9 @@ class Doughnut_SVG {
         this._midDonut = this._inDonut + (this._outDonut - this._inDonut) / 2;
         this._inOuter = this._outDonut;
 
-        //Modified to make 1.5 * bigger?
+        //Modified to make 1.5x bigger?
         this._outOuter = this._inOuter + (this._section - overlapDonut) * 1.5;
-        this._extraDonut = this._outOuter + Math.round((25*1.5) * fudge);   // For the complete overshoot
+        this._extraDonut = this._outOuter + Math.round((25* 1.5) * fudge);   // For the complete overshoot (1.5 x bigger)
 
         this._arcLineWidth = 2;
         this._textInner = this._outInner + (this._section / 2);
@@ -199,7 +200,7 @@ class Doughnut_SVG {
         // Dimension level values
         this._minDonutLevelRadius = -100;
         this._normalDonutLevelRadius = 100;
-        this._maxDonutLevelRadius = 150;    // For maximum overshoot!
+        this._maxDonutLevelRadius = 150;    // For maximum overshoot!(change since I made bigger? 150* 1.5)
 
         this._canvas = document.getElementById(canvasId);
         this._ctx = new C2S(this._donutSize, this._donutSize);
