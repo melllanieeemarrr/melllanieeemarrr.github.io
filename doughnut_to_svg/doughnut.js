@@ -657,6 +657,7 @@ class Doughnut {
         this._ctx.stroke();
     }
 
+    
     _setupCanvas() {
         this._ctx.font = this._textSize + "px Arial";
         this._ctx.textAlign = "center";
