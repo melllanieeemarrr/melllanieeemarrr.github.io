@@ -178,7 +178,8 @@ class Doughnut_SVG {
         let overlapDonut = (this._donutRingSize - this._section) / 2;
         //this._debug("section: " + this._section + " / donutRingSize: " + this._donutRingSize + " / overlap: " + overlapDonut);
 
-        this._outInner = this._inInner + this._section - overlapDonut;
+        //this._outInner = this._inInner + this._section - overlapDonut;
+        this._outInner = this._section + this._section - overlapDonut;
 
         this._inDonut = this._outInner;
         this._outDonut = this._inDonut + this._donutRingSize;

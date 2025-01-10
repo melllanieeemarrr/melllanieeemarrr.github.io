@@ -169,6 +169,7 @@ class Doughnut {
         this._middleX = this._donutSize / 2;
         this._middleY = this._donutSize / 2;
         this._donutLineSize = Math.round(16 * fudge);  // For the outer/inner safe zone lines
+
         this._donutMargin = Math.round(100 * fudge);   // The space around the whole doughnut diagram
         this._section = (this._donutSize - this._donutMargin) / 8;
 
@@ -178,7 +179,8 @@ class Doughnut {
         let overlapDonut = (this._donutRingSize - this._section) / 2;
         //this._debug("section: " + this._section + " / donutRingSize: " + this._donutRingSize + " / overlap: " + overlapDonut);
         
-        this._outInner = this._inInner + this._section - overlapDonut;
+        //this._outInner = this._inInner + this._section - overlapDonut;
+        this._outInner = this._section + this._section - overlapDonut;
 
         this._inDonut = this._outInner;
         this._outDonut = this._inDonut + this._donutRingSize;
