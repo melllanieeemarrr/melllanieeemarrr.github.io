@@ -171,22 +171,29 @@ class Doughnut_SVG {
         this._donutLineSize = Math.round(16 * fudge);  // For the outer/inner safe zone lines
         this._donutMargin = Math.round(100 * fudge);   // The space around the whole doughnut diagram
         this._section = (this._donutSize - this._donutMargin) / 8;
-        this._inInner = this._section;
+
+        this._inInner = 0;
+
         this._donutRingSize = this._section * this._donutScale;
         let overlapDonut = (this._donutRingSize - this._section) / 2;
         //this._debug("section: " + this._section + " / donutRingSize: " + this._donutRingSize + " / overlap: " + overlapDonut);
+
         this._outInner = this._inInner + this._section - overlapDonut;
+
         this._inDonut = this._outInner;
         this._outDonut = this._inDonut + this._donutRingSize;
         this._midDonut = this._inDonut + (this._outDonut - this._inDonut) / 2;
         this._inOuter = this._outDonut;
-        this._outOuter = this._inOuter + this._section - overlapDonut;
-        this._extraDonut = this._outOuter + Math.round(25 * fudge);   // For the complete overshoot
+
+        //Modified to make 1.5 * bigger?
+        this._outOuter = this._inOuter + (this._section - overlapDonut) * 1.5;
+        this._extraDonut = this._outOuter + Math.round((25*1.5) * fudge);   // For the complete overshoot
+
         this._arcLineWidth = 2;
         this._textInner = this._outInner + (this._section / 2);
         this._textOuter = this._outOuter - this._textSize;
-        this._donutFrosting = "rgb(71,112,32)";
-        this._donutFilling = "rgb(140,215,85)";
+        this._donutFrosting = "rgb(3,134,173)";
+        this._donutFilling = "rgb(126,208,247)";
 
         // Dimension level values
         this._minDonutLevelRadius = -100;
@@ -204,12 +211,12 @@ class Doughnut_SVG {
         div.style.maxWidth = this._donutSize;
 
         this._grdGlobal = this._ctx.createRadialGradient(this._middleX, this._middleY, this._outOuter, this._middleX, this._middleY, this._extraDonut);
-        this._grdGlobal.addColorStop(0, "rgb(211,63,54)");
+        this._grdGlobal.addColorStop(0, "rgb(251,170,170)");
         this._grdGlobal.addColorStop(1, "white");
 
         this._grdPersonal = this._ctx.createRadialGradient(this._middleX, this._middleY, this._inInner, this._middleX, this._middleY, this._outOuter);
-        this._grdPersonal.addColorStop(0, "rgb(136,50,81)");
-        this._grdPersonal.addColorStop(1, "rgb(224,150,198)");
+        this._grdPersonal.addColorStop(0, "rgb(251,170,170)");
+        this._grdPersonal.addColorStop(1, "rgb(251,170,170)");
 
         this._grd = this._grdPersonal;
         this._innerDims = new _DoughnutDimensions_SVG("inner", this._normalDonutLevelRadius);
@@ -416,7 +423,7 @@ class Doughnut_SVG {
         let adjust = this._donutLineSize / 2;
         this._ctx.lineWidth = this._donutLineSize;
         this._ctx.strokeStyle = this._donutFrosting;
-        // Inside line
+        // // Inside line
         this._ctx.beginPath();
         this._ctx.arc(this._middleX, this._middleY, this._inDonut + adjust, 0, 2 * Math.PI);
         this._ctx.stroke();
@@ -634,9 +641,9 @@ class Doughnut_SVG {
         this._ctx.beginPath();
         this._ctx.arc(this._middleX, this._middleY, this._outOuter, 0, 2 * Math.PI);
         this._ctx.stroke();
-        this._ctx.beginPath();
-        this._ctx.arc(this._middleX, this._middleY, this._midDonut, 0, 2 * Math.PI);
-        this._ctx.stroke();
+        // this._ctx.beginPath();
+        // this._ctx.arc(this._middleX, this._middleY, this._midDonut, 0, 2 * Math.PI);
+        // this._ctx.stroke();
         this._ctx.beginPath();
         this._ctx.arc(this._middleX, this._middleY, this._inInner, 0, 2 * Math.PI);
         this._ctx.stroke();
@@ -704,8 +711,8 @@ class Doughnut_SVG {
         this._drawLimits();
         this._drawLabels();
         this._ctx.fillStyle = "black";
-        this._ctx.fillText("Healthcare", this._middleX, this._middleY - this._textSize);
-        this._ctx.fillText("Doughnut", this._middleX, this._middleY + this._textSize)
+        //this._ctx.fillText("Healthcare", this._middleX, this._middleY - this._textSize);
+        //this._ctx.fillText("Doughnut", this._middleX, this._middleY + this._textSize)
 
         if (this._selectedDimInfo) {
             this._ctx.strokeStyle = "blue";
