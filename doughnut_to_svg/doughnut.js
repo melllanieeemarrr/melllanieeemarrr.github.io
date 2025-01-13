@@ -163,7 +163,7 @@ class Doughnut {
         //this._debug("size: " + this._donutSize + " / scale: " + this._donutScale);
 
         // Fudge factor adjusetment for hard coded values to be scaled based on given size
-        let fudge = (size / 640);
+        let fudge = (size / 640); // og: 
 
         // Size of doughnut dimensions
         this._middleX = this._donutSize / 2;

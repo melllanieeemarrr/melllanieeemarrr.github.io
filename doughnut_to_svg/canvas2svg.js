@@ -890,6 +890,7 @@
             r: r1 + "px",
             fx: x0 + "px",
             fy: y0 + "px",
+            fr: r0 + "px",
             "gradientUnits": "userSpaceOnUse"
         }, false);
         this.__defs.appendChild(grad);
