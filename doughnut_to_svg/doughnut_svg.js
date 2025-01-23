@@ -146,6 +146,7 @@ class Doughnut_SVG {
     // outerId: Optional id of paragraph to show outer dimensions list
     // exportId: Optional id of textarea to show export CSV string
     constructor(size, donutScale, textSize, canvasId, divId, infoId, innerId, outerId, exportId) {
+        size = 640;
         this._donutSize = size;
         this._textSize = textSize;
         if (donutScale >= 0.5 && donutScale <= 1.5) {
@@ -213,12 +214,12 @@ class Doughnut_SVG {
         div.style.maxWidth = this._donutSize;
 
         this._grdGlobal = this._ctx.createRadialGradient(this._middleX, this._middleY, this._outOuter, this._middleX, this._middleY, this._extraDonut);
-        this._grdGlobal.addColorStop(0, "rgb(251,170,170)");
+        this._grdGlobal.addColorStop(0, "rgb(251, 138, 152)");
         this._grdGlobal.addColorStop(1, "white");
 
         this._grdPersonal = this._ctx.createRadialGradient(this._middleX, this._middleY, this._inInner, this._middleX, this._middleY, this._outOuter);
-        this._grdPersonal.addColorStop(0, "rgb(251,170,170)");
-        this._grdPersonal.addColorStop(1, "rgb(251,170,170)");
+        this._grdPersonal.addColorStop(0, "rgb(251, 138, 152)");
+        this._grdPersonal.addColorStop(1, "rgb(251, 138, 152)");
 
         this._grd = this._grdPersonal;
         this._innerDims = new _DoughnutDimensions_SVG("inner", this._normalDonutLevelRadius);
@@ -517,10 +518,11 @@ class Doughnut_SVG {
                 //this._debug("arc-deg:" + arc + "," + arcStart + "," + arcEnd);
                 //this._debug("arc-rad:" + arc + "," + radiiOut[arc].toString() + "," + radiiIn[arc].toString() + "," + radiiColour[arc]);
                 this._ctx.fillStyle = radiiColour[arc];
+                let gap = 0.009; // Adjust this value to control the gap size
                 this._ctx.beginPath();
-                this._ctx.arc(this._middleX, this._middleY, radiiOut[arc], arcStart, arcEnd);
-                this._ctx.arc(this._middleX, this._middleY, radiiIn[arc], arcEnd, arcStart, true);
-                this._ctx.closePath();
+                this._ctx.arc(this._middleX, this._middleY, radiiOut[arc], arcStart + gap, arcEnd - gap);
+                this._ctx.arc(this._middleX, this._middleY, radiiIn[arc], arcEnd - gap, arcStart + gap, true);
+                this._ctx.closePath();                
                 this._ctx.stroke();
                 this._ctx.fill();
                 // Create a path to find this arc
@@ -638,11 +640,6 @@ class Doughnut_SVG {
     _drawLimits() {
         this._ctx.fillStyle = 'transparent';
         let dash = this._ctx.getLineDash();
-        this._ctx.setLineDash([5]);
-        this._ctx.strokeStyle = "gray";
-        this._ctx.beginPath();
-        this._ctx.arc(this._middleX, this._middleY, this._outOuter, 0, 2 * Math.PI);
-        this._ctx.stroke();
         // this._ctx.beginPath();
         // this._ctx.arc(this._middleX, this._middleY, this._midDonut, 0, 2 * Math.PI);
         // this._ctx.stroke();
